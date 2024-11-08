@@ -95,7 +95,11 @@ img {
 <script>
 function output(output) {
   var texted = document.getElementById('terminal');
-  texted.innerHTML += '<br>&nbsp;&nbsp;&nbsp;<span class="cyan">' + output + '</cyan>';
+  if (output.search('Error') != -1) {
+    texted.innerHTML += '<br>&nbsp;&nbsp;&nbsp;<span class="red">' + output + '</cyan>';
+  } else {
+    texted.innerHTML += '<br>&nbsp;&nbsp;&nbsp;<span class="cyan">' + output + '</cyan>';
+  }
   texted.scrollTop = texted.scrollHeight;
 }
 function run(inputRaw) {
@@ -124,14 +128,14 @@ function keyEnter() {
   var texted = document.getElementById('terminal');
   var text = document.getElementById('text');
   var colored = raw;
-  colored = setTextColor(colored, 'run', 'red');
-  colored = setTextColor(colored, 'ttt', 'red');
-  colored = setTextColor(colored, 'yes', 'orange');
-  colored = setTextColor(colored, 'no', 'orange');
+  colored = setTextColor(colored, 'run', 'orange');
+  colored = setTextColor(colored, 'ttt', 'orange');
+  colored = setTextColor(colored, 'yes', 'yellow');
+  colored = setTextColor(colored, 'no', 'yellow');
   colored = setTextColor(colored, 'eat', 'pink');
   colored = setTextColor(colored, 'shadow', 'black');
   colored = setTextColor(colored, 'void', 'black');
-  try {colored = setTextColor(colored, colored.match(/\(([^)]+)\)/)[1], 'yellow');} catch {colored = colored;}
+  try {colored = setTextColor(colored, colored.match(/\(([^)]+)\)/)[1], 'blue');} catch {colored = colored;}
   texted.innerHTML += '<br><span class="green">-> </span>' + colored;
   run(raw);
   text.innerHTML = '<span class="b">_</span>';
