@@ -127,10 +127,14 @@ function run(inputRaw) {
     } else {
       output('Error');
     }
+  } else if (input.slice(0,4) === 'void') {
+    var texted = document.getElementById('terminal');
+    texted.innerHTML = '';
+    output('Cleared');
   } else if (input !== '') {
     output('Error');
   }
-}
+} 
 function setTextColor(fullText, text, color) {
   return fullText.replace(RegExp(text,'gi'), '<span class="' + color + '">' + text + '</span>');
 }
