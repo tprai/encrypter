@@ -8,36 +8,32 @@
 p {
   word-break: break-all;
   overflow-y: auto;
-  color: #00FF00; /*green*/
-  font-family: 'Courier New', monospace; /*font*/
-  text-shadow: 0 0 5px #00FF00; /*text glow*/
+  color: #FFFFFF;
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 5px #00FF00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
   line-height: 32px;
   font-size: 16px;
   padding: 10px;
+  position: fixed;
+  width: 80%;
+  left: 10%;
 }
 h1 {
   color: #00FF00; /*green*/
-  font-family: 'Courier New', monospace; /*font*/
-  text-shadow: 0 0 5px #00FF00; /*glow*/
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 5px #00FF00;
   position: fixed;
   left: 10%;
   top: 0%;
   font-size: 40px;
 }
 #terminal {
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Glowing effect */
-  position: fixed;
-  width: 80%;
   height: 60%;
-  left: 10%;
   top: 10%;
 }
 #text {
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Glowing effect */
-  position: fixed;
-  width: 80%;
   height: 10%;
-  left: 10%;
   bottom: 10%;
 }
 ::-webkit-scrollbar {
@@ -63,11 +59,23 @@ img {
   color: #00FFFF;
   text-shadow: 0 0 5px #00FFFF;
 }
+.green {
+  color: #00FF00;
+  text-shadow: 0 0 5px #00FF00;
+}
+.red {
+  color: #FF0000;
+  text-shadow: 0 0 5px #FF0000;
+}
+.black {
+  color: #000000;
+  text-shadow: 0 0 5px #FFFFFF;
+}
 </style>
 <script>
 function output(output) {
   var texted = document.getElementById('terminal');
-  texted.innerHTML += '<br>== <span class="cyan">' + output + '</cyan>';
+  texted.innerHTML += '<br>   <span class="cyan">' + output + '</cyan>';
   texted.scrollTop = texted.scrollHeight;
 }
 function run(inputRaw) {
@@ -85,7 +93,7 @@ document.addEventListener('keydown', function(event) {
   var texted = document.getElementById('terminal');
   var text = document.getElementById('text');
   if (event.key == 'Enter') {
-    texted.innerHTML += '<br>-> ' + text.innerHTML.slice(0,-24);
+    texted.innerHTML += '<br><span class="green">-> </span>' + text.innerHTML.slice(0,-24);
     run(text.innerHTML.slice(0,-24));
     text.innerHTML = '<span class="b">_</span>';
     texted.scrollTop = texted.scrollHeight;
