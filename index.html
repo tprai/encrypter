@@ -66,6 +66,26 @@ img {
   color: #FF0000;
   text-shadow: 0 0 5px #FF0000;
 }
+.pink {
+  color: #FF00FF;
+  text-shadow: 0 0 5px #FF00FF;
+}
+.blue {
+  color: #0000FF;
+  text-shadow: 0 0 5px #0000FF;
+}
+.yellow {
+  color: #FFFF00;
+  text-shadow: 0 0 5px #FFFF00;
+}
+.orange {
+  color: #FFA500;
+  text-shadow: 0 0 5px #FFA500;
+}
+.purple {
+  color: #8800FF;
+  text-shadow: 0 0 5px #8800FF;
+}
 .black {
   color: #000000;
   text-shadow: 0 0 5px #FFFFFF;
@@ -97,6 +117,9 @@ function keyEnter() {
   var colored = raw;
   colored = setTextColor(colored, 'run', 'red');
   colored = setTextColor(colored, 'ttt', 'red');
+  colored = setTextColor(colored, 'yes', 'orange');
+  colored = setTextColor(colored, 'no', 'orange');
+  try {colored = setTextColor(colored, colored.match(/\(([^)]+)\)/)[1], 'yellow');} catch {colored = colored;}
   texted.innerHTML += '<br><span class="green">-> </span>' + colored;
   run(raw);
   text.innerHTML = '<span class="b">_</span>';
