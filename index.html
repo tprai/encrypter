@@ -110,19 +110,29 @@ function run(inputRaw) {
       output('You died lol');
     } else if (input.indexOf("secret") === 0) {
       output('There is no secret.');
+    } else if (input.indexOf("goto") === 0) {
+      output('Input URL:');
     } else if (input.indexOf("eat ") === 0) {
       input = input.slice(4).trim();
       output(input.slice(0,1).toUpperCase() + input.slice(1) + ' has been eaten.');
+    } else {
+      output('Error');
     }
   } else if (input.slice(0,3) === 'ttt') {
     input = input.slice(3).trim();
-    output('TTT Activated');
+    if (input === '') {
+      output('TTT Activated');
+    } else if (input.indexOf("secret") === 0) {
+      output('There is no secret.');
+    } else {
+      output('Error');
+    }
   } else if (input !== '') {
     output('Error');
   }
 }
 function setTextColor(fullText, text, color) {
-  return fullText.replace(text, '<span class="' + color + '">' + text + '</span>');
+  return fullText.replace(RegExp(text,'gi'), '<span class="' + color + '">' + text + '</span>');
 }
 function keyEnter() {
   var texted = document.getElementById('terminal');
@@ -132,10 +142,10 @@ function keyEnter() {
   colored = setTextColor(colored, 'ttt', 'orange');
   colored = setTextColor(colored, 'yes', 'yellow');
   colored = setTextColor(colored, 'no', 'yellow');
-  colored = setTextColor(colored, 'eat', 'pink');
+  colored = setTextColor(colored, ' eat', 'pink');
   colored = setTextColor(colored, 'shadow', 'black');
   colored = setTextColor(colored, 'void', 'black');
-  try {colored = setTextColor(colored, colored.match(/\(([^)]+)\)/)[1], 'blue');} catch {colored = colored;}
+  /*try {colored = setTextColor(colored, colored.match(/\(([^)]+)\)/)[1], 'blue');} catch {colored = colored;}*/
   texted.innerHTML += '<br><span class="green">-> </span>' + colored;
   run(raw);
   text.innerHTML = '<span class="b">_</span>';
