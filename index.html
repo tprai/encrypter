@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Encrypter</title>
+<title>Terminal</title>
 <style>
 p {
   word-break: break-all;
@@ -67,7 +67,7 @@ img {
 <script>
 function output(output) {
   var texted = document.getElementById('terminal');
-  texted.innerHTML += '<br>== <span class="cyan">' + output + </cyan>;
+  texted.innerHTML += '<br>== <span class="cyan">' + output + '</cyan>';
   texted.scrollTop = texted.scrollHeight;
 }
 function run(inputRaw) {
@@ -83,7 +83,6 @@ function run(inputRaw) {
 document.addEventListener('keydown', function(event) {
   var texted = document.getElementById('terminal');
   var text = document.getElementById('text');
-  var wrap = text.style.height;
   if (event.key == 'Enter') {
     texted.innerHTML += '<br>-> ' + text.innerHTML.slice(0,-24);
     run(text.innerHTML.slice(0,-24));
@@ -106,15 +105,12 @@ document.addEventListener('keydown', function(event) {
   } else if (event.key.length == 1 && !(event.ctrlKey)) {
     text.innerHTML = text.innerHTML.slice(0,-24) + event.key + text.innerHTML.slice(-24);
   }
-  if (wrap != text.style.height) {
-  	typing.style.height += 2;
-  }
   text.scrollTop = text.scrollHeight;
 });
 </script>
 </head><body>
 <img src="background.png" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
-<h1>///////////</h1>
+<h1>Terminal</h1>
 <p id="terminal">Enter text below</p>
 <p id="text"><span class="b">_</span></p>
 </body>
