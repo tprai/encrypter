@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Encrypter</title>
+<script src="script.js"></script>
 <style>
 p {
   word-break: break-all;
@@ -60,6 +61,7 @@ document.addEventListener('keydown', function(event) {
   var wrap = text.style.height;
   if (event.key == 'Enter') {
     texted.innerHTML += '<br>-> ' + text.innerHTML.slice(0,-24);
+    run(text);
     text.innerHTML = '<span class="b">_</span>';
     texted.scrollTop = texted.scrollHeight;
   } else if (event.key == 'Backspace') {
