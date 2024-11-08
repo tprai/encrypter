@@ -76,7 +76,8 @@ function run(inputRaw) {
     input = input.slice(3).trim();
     if (input.indexOf("death") == 0) {
       output('You died lol');
-    }
+    } else if (input.indexOf("secret") == 0) {
+      output('There is no secret.')
   }
 }
 document.addEventListener('keydown', function(event) {
