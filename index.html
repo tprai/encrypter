@@ -76,7 +76,7 @@ document.addEventListener('keydown', function(event) {
     });
   } else if (event.key == '<' || event.key == '>' || event.key == '&') {
     text = text;
-  } else if (event.key.length == 1 && (event.ctrlKey && event.key != 'c')) {
+  } else if (event.key.length == 1 && !(event.ctrlKey)) {
   	text.innerHTML = text.innerHTML.slice(0,-24) + event.key + text.innerHTML.slice(-24);
   }
   if (wrap != text.style.height) {
