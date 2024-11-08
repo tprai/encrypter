@@ -119,6 +119,8 @@ function keyEnter() {
   colored = setTextColor(colored, 'ttt', 'red');
   colored = setTextColor(colored, 'yes', 'orange');
   colored = setTextColor(colored, 'no', 'orange');
+  colored = setTextColor(colored, 'shadow', 'black');
+  colored = setTextColor(colored, 'void', 'black');
   try {colored = setTextColor(colored, colored.match(/\(([^)]+)\)/)[1], 'yellow');} catch {colored = colored;}
   texted.innerHTML += '<br><span class="green">-> </span>' + colored;
   run(raw);
