@@ -10,7 +10,6 @@ p {
   overflow-y: auto;
   color: #FFFFFF;
   font-family: 'Courier New', monospace;
-  text-shadow: 0 0 5px #00FF00;
   box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
   line-height: 32px;
   font-size: 16px;
@@ -89,30 +88,35 @@ function run(inputRaw) {
     }
   }
 }
+var raw = '';
 document.addEventListener('keydown', function(event) {
   var texted = document.getElementById('terminal');
   var text = document.getElementById('text');
   if (event.key == 'Enter') {
-    texted.innerHTML += '<br><span class="green">-> </span>' + text.innerHTML.slice(0,-24);
-    run(text.innerHTML.slice(0,-24));
+    texted.innerHTML += '<br><span class="green">-> </span>' + raw;
+    run(raw);
     text.innerHTML = '<span class="b">_</span>';
+    raw = '';
     texted.scrollTop = texted.scrollHeight;
   } else if (event.key == 'Backspace') {
-    text.innerHTML = text.innerHTML.slice(0, -25) + text.innerHTML.slice(-24);
+  	raw = raw.slice(0,-1);
+    text.innerHTML = raw + text.innerHTML.slice(-24);
   } else if (event.key == 'Tab') {
   	event.preventDefault();
   } else if (event.ctrlKey && event.key == 'v') {
     navigator.clipboard.readText().then(clipText => {
       if (clipText.search('<') == -1 || clipText.search('>') == -1 || clipText.search('&') == -1){
-        text.innerHTML = text.innerHTML.slice(0,-24) + clipText + text.innerHTML.slice(-24);
+      	raw = raw + clipText;
+        text.innerHTML = raw + text.innerHTML.slice(-24);
       }
     });
   } else if (event.ctrlKey && event.key == 'c') {
     navigator.clipboard.writeText(text.innerHTML.slice(0,-24));
   } else if (event.key == '<' || event.key == '>' || event.key == '&') {
-    text = text;
+    raw = raw;
   } else if (event.key.length == 1 && !(event.ctrlKey)) {
-    text.innerHTML = text.innerHTML.slice(0,-24) + event.key + text.innerHTML.slice(-24);
+  	raw = raw + event.key;
+    text.innerHTML = raw + text.innerHTML.slice(-24);
   }
   text.scrollTop = text.scrollHeight;
 });
