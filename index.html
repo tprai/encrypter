@@ -59,11 +59,15 @@ img {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+.cyan {
+  color: #00FFFF;
+  text-shadow: 0 0 5px #00FFFF;
+}
 </style>
 <script>
 function output(output) {
   var texted = document.getElementById('terminal');
-  texted.innerHTML += '<br>== ' + output;
+  texted.innerHTML += '<br>== <span class="cyan">' + output + </cyan>;
   texted.scrollTop = texted.scrollHeight;
 }
 function run(inputRaw) {
