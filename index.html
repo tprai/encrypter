@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Encrypter</title>
-<script src="script.js"></script>
 <style>
 p {
   word-break: break-all;
@@ -47,14 +46,35 @@ h1 {
 .b {
   animation: blink-animation 1s steps(2, start) infinite;
 }
-
 @keyframes blink-animation {
   to {
     visibility: hidden;
   }
 }
+img {
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
 </style>
 <script>
+function output(output) {
+  var texted = document.getElementById('terminal');
+  texted.innerHTML += '<br>== ' + output;
+  texted.scrollTop = texted.scrollHeight;
+}
+function run(inputRaw) {
+  input = inputRaw.trim().toLowerCase();
+  if (input.slice(0,3) == 'run') {
+    input = input.slice(3).trim();
+    if (input.indexOf("death") == 0) {
+      output('You died lol');
+    }
+  }
+}
 document.addEventListener('keydown', function(event) {
   var texted = document.getElementById('terminal');
   var text = document.getElementById('text');
@@ -74,6 +94,8 @@ document.addEventListener('keydown', function(event) {
         text.innerHTML = text.innerHTML.slice(0,-24) + clipText + text.innerHTML.slice(-24);
       }
     });
+  } else if (event.ctrlKey && event.key == 'c') {
+    navigator.clipboard.writeText(text.innerHTML.slice(0,-24));
   } else if (event.key == '<' || event.key == '>' || event.key == '&') {
     text = text;
   } else if (event.key.length == 1 && !(event.ctrlKey)) {
