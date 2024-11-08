@@ -110,7 +110,7 @@ function run(inputRaw) {
   } else if (input.slice(0,3) == 'ttt') {
     input = input.slice(3).trim();
     output('TTT Activated');
-  } else {
+  } else if (input != '') {
     output('Error');
   }
 }
