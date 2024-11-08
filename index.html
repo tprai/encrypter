@@ -100,17 +100,20 @@ function output(output) {
 }
 function run(inputRaw) {
   input = inputRaw.trim().toLowerCase();
-  if (input.slice(0,3) == 'run') {
+  if (input.slice(0,3) === 'run') {
     input = input.slice(3).trim();
-    if (input.indexOf("death") == 0) {
+    if (input.indexOf("death") === 0) {
       output('You died lol');
-    } else if (input.indexOf("secret") == 0) {
+    } else if (input.indexOf("secret") === 0) {
       output('There is no secret.');
+    } else if (input.indexOf("eat ") === 0) {
+      input = input.slice(4).trim();
+      output(input.slice(0,1).toUpperCase() + input.slice(1) + ' has been eaten.');
     }
-  } else if (input.slice(0,3) == 'ttt') {
+  } else if (input.slice(0,3) === 'ttt') {
     input = input.slice(3).trim();
     output('TTT Activated');
-  } else if (input != '') {
+  } else if (input !== '') {
     output('Error');
   }
 }
@@ -125,6 +128,7 @@ function keyEnter() {
   colored = setTextColor(colored, 'ttt', 'red');
   colored = setTextColor(colored, 'yes', 'orange');
   colored = setTextColor(colored, 'no', 'orange');
+  colored = setTextColor(colored, 'eat', 'pink');
   colored = setTextColor(colored, 'shadow', 'black');
   colored = setTextColor(colored, 'void', 'black');
   try {colored = setTextColor(colored, colored.match(/\(([^)]+)\)/)[1], 'yellow');} catch {colored = colored;}
