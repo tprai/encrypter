@@ -72,7 +72,8 @@ img {
 }
 .blue {
   color: #0000FF;
-  text-shadow: 0 0 5px #0000FF;
+  text-shadow: 0 0 5px #FFFFFF, 0 0 3px #FFFFFF, 0 0 1px #FFFFFF;
+  font-weight: bold;
 }
 .yellow {
   color: #FFFF00;
@@ -102,6 +103,8 @@ function output(output) {
   }
   texted.scrollTop = texted.scrollHeight;
 }
+
+var stomach = '|';
 function run(inputRaw) {
 input = inputRaw.trim().toLowerCase();
 if (input.slice(0,8) === 'run void') {
@@ -119,7 +122,16 @@ if (input.slice(0,8) === 'run void') {
       output('Input URL:');
     } else if (input.indexOf("eat ") === 0) {
       input = input.slice(4).trim();
-      output(input.slice(0,1).toUpperCase() + input.slice(1) + ' has now been eaten.');
+      var toEat = input.slice(0,1).toUpperCase() + input.slice(1)
+      var newStomach = stomach + toEat + '|';
+      if (newStomach.length > 20) {
+        output('Your stomach does not have room to fit ' + toEat);
+      } else if  (stomach.search(toEat) === -1) {
+        output(toEat + ' has now been eaten.');
+        stomach = newStomach;
+      } else {
+        output(toEat + ' has already been eaten.');
+      }
     } else {
       output('Error');
     }
