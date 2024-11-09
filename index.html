@@ -103,7 +103,12 @@ function output(output) {
   texted.scrollTop = texted.scrollHeight;
 }
 function run(inputRaw) {
-  input = inputRaw.trim().toLowerCase();
+input = inputRaw.trim().toLowerCase();
+if (input.slice(0,8) === 'run void') {
+  var texted = document.getElementById('terminal');
+  texted.innerHTML = '';
+  output('Cleared');
+} else if (dir === '<span class="green">-> </span>') {    
   if (input.slice(0,3) === 'run') {
     input = input.slice(3).trim();
     if (input.indexOf("death") === 0) {
@@ -114,7 +119,7 @@ function run(inputRaw) {
       output('Input URL:');
     } else if (input.indexOf("eat ") === 0) {
       input = input.slice(4).trim();
-      output(input.slice(0,1).toUpperCase() + input.slice(1) + ' has been eaten.');
+      output(input.slice(0,1).toUpperCase() + input.slice(1) + ' has now been eaten.');
     } else {
       output('Error');
     }
@@ -127,21 +132,17 @@ function run(inputRaw) {
     } else {
       output('Error');
     }
-  } else if (input.slice(0,4) === 'void') {
-    var texted = document.getElementById('terminal');
-    texted.innerHTML = '';
-    output('Cleared');
-  } else if (input !== '') {
+  } else if (input !== '' && input !== 'void') {
     output('Error');
+    dir = '<span class="green">-> </span>';
   }
-} 
+}
+} /*0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
+  /*0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
 function setTextColor(fullText, text, color) {
   return fullText.replace(RegExp(text,'gi'), '<span class="' + color + '">' + text + '</span>');
 }
-function keyEnter() {
-  var texted = document.getElementById('terminal');
-  var text = document.getElementById('text');
-  var colored = raw;
+function applyColor(colored) {
   colored = setTextColor(colored, 'run', 'orange');
   colored = setTextColor(colored, 'ttt', 'orange');
   colored = setTextColor(colored, 'yes', 'yellow');
@@ -149,7 +150,23 @@ function keyEnter() {
   colored = setTextColor(colored, ' eat', 'pink');
   colored = setTextColor(colored, 'shadow', 'black');
   colored = setTextColor(colored, 'void', 'black');
+  colored = setTextColor(colored, '0', 'blue');
+  colored = setTextColor(colored, '1', 'blue');
+  colored = setTextColor(colored, '2', 'blue');
+  colored = setTextColor(colored, '3', 'blue');
+  colored = setTextColor(colored, '4', 'blue');
+  colored = setTextColor(colored, '5', 'blue');
+  colored = setTextColor(colored, '6', 'blue');
+  colored = setTextColor(colored, '7', 'blue');
+  colored = setTextColor(colored, '8', 'blue');
+  colored = setTextColor(colored, '9', 'blue');
   /*try {colored = setTextColor(colored, colored.match(/\(([^)]+)\)/)[1], 'blue');} catch {colored = colored;}*/
+  return colored;
+}
+function keyEnter() {
+  var texted = document.getElementById('terminal');
+  var text = document.getElementById('text');
+  var colored = applyColor(raw);
   texted.innerHTML += '<br><span class="green">-> </span>' + colored;
   run(raw);
   text.innerHTML = '<span class="b">_</span>';
@@ -158,10 +175,11 @@ function keyEnter() {
 }
 function updateText() {
   var text = document.getElementById('text');
-  text.innerHTML = raw + text.innerHTML.slice(-24);
+  text.innerHTML = dir + raw + text.innerHTML.slice(-24);
   text.scrollTop = text.scrollHeight;
 }
 
+var dir = '<span class="green">-> </span>'
 var raw = '';
 document.addEventListener('keydown', function(event) {
   if (event.key == 'Enter') {
