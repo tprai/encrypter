@@ -116,6 +116,10 @@ if (input.slice(0,8) === 'run void') {
     input = input.slice(3).trim();
     if (input.indexOf("death") === 0) {
       output('You died lol');
+    } else if (input.indexOf("no secret") === 0) {
+      output('There is no secret.');
+      output('Enter the passkey below.');
+      dir = '<span class="green">secret-> </span>';
     } else if (input.indexOf("secret") === 0) {
       output('There is no secret.');
     } else if (input.indexOf("goto") === 0) {
@@ -179,9 +183,9 @@ function keyEnter() {
   var texted = document.getElementById('terminal');
   var text = document.getElementById('text');
   var colored = applyColor(raw);
-  texted.innerHTML += '<br><span class="green">-> </span>' + colored;
+  texted.innerHTML += '<br>' + dir + colored;
   run(raw);
-  text.innerHTML = '<span class="b">_</span>';
+  text.innerHTML = dir + '<span class="b">_</span>';
   raw = '';
   texted.scrollTop = texted.scrollHeight;
 }
