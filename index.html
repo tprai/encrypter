@@ -157,9 +157,10 @@ if (input.slice(0,8) === 'run void') {
   }
 } else if (dir === '<span class="green">secret-> </span>') {
   if (input === 'bean') {
-    output('hehehe you found me hehehe');
+    output('hehehe this isn\'t the secret hehehe');
   	dir = '<span class="green">-> </span>';
-    
+  } else if (input === 'hehehe') {
+  	output('<br>## ##&nbsp;&nbsp;###&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;# # #&nbsp;&nbsp;###&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;|<br>## ## #&nbsp;&nbsp;&nbsp;# #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;# # #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;#&nbsp;&nbsp;|<br>&nbsp;###&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;# #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;# # #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;# # #&nbsp;&nbsp;|<br>&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;# #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;# # #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;##&nbsp;&nbsp;|<br>&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# #&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;0');
   } else {
     output('Error: incorrect passkey');
   }
@@ -218,7 +219,7 @@ document.addEventListener('keydown', function(event) {
   	event.preventDefault();
   } else if (event.ctrlKey && event.key == 'v') {
     navigator.clipboard.readText().then(clipText => {
-      if (clipText.search('<') == -1 || clipText.search('>') == -1 || clipText.search('&') == -1){
+      if (clipText.search('<') == -1 || clipText.search('>') == -1 || clipText.search('&') == -1) {
       	raw = raw + clipText;
         updateText();
       }
