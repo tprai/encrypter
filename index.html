@@ -97,9 +97,9 @@ img {
 function output(output) {
   var texted = document.getElementById('terminal');
   if (output.search('Error') != -1) {
-    texted.innerHTML += '<br>&nbsp;&nbsp;&nbsp;<span class="red">' + output + '</cyan>';
+    texted.innerHTML += '<br>&nbsp;&nbsp;&nbsp;<span class="red">' + output + '</span>';
   } else {
-    texted.innerHTML += '<br>&nbsp;&nbsp;&nbsp;<span class="cyan">' + output + '</cyan>';
+    texted.innerHTML += '<br>&nbsp;&nbsp;&nbsp;<span class="green">' + output + '</span>';
   }
   texted.scrollTop = texted.scrollHeight;
 }
@@ -162,16 +162,16 @@ function applyColor(colored) {
   colored = setTextColor(colored, ' eat', 'pink');
   colored = setTextColor(colored, 'shadow', 'black');
   colored = setTextColor(colored, 'void', 'black');
-  colored = setTextColor(colored, '0', 'blue');
-  colored = setTextColor(colored, '1', 'blue');
-  colored = setTextColor(colored, '2', 'blue');
-  colored = setTextColor(colored, '3', 'blue');
-  colored = setTextColor(colored, '4', 'blue');
-  colored = setTextColor(colored, '5', 'blue');
-  colored = setTextColor(colored, '6', 'blue');
-  colored = setTextColor(colored, '7', 'blue');
-  colored = setTextColor(colored, '8', 'blue');
-  colored = setTextColor(colored, '9', 'blue');
+  colored = setTextColor(colored, '0', 'cyan');
+  colored = setTextColor(colored, '1', 'cyan');
+  colored = setTextColor(colored, '2', 'cyan');
+  colored = setTextColor(colored, '3', 'cyan');
+  colored = setTextColor(colored, '4', 'cyan');
+  colored = setTextColor(colored, '5', 'cyan');
+  colored = setTextColor(colored, '6', 'cyan');
+  colored = setTextColor(colored, '7', 'cyan');
+  colored = setTextColor(colored, '8', 'cyan');
+  colored = setTextColor(colored, '9', 'cyan');
   /*try {colored = setTextColor(colored, colored.match(/\(([^)]+)\)/)[1], 'blue');} catch {colored = colored;}*/
   return colored;
 }
@@ -193,6 +193,7 @@ function updateText() {
 
 var dir = '<span class="green">-> </span>'
 var raw = '';
+updateText();
 document.addEventListener('keydown', function(event) {
   if (event.key == 'Enter') {
     keyEnter();
