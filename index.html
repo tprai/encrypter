@@ -125,7 +125,7 @@ if (input.slice(0,8) === 'run void') {
       var toEat = input.slice(0,1).toUpperCase() + input.slice(1)
       var newStomach = stomach + toEat + '|';
       if (newStomach.length > 20) {
-        output('Your stomach does not have room to fit ' + toEat);
+        output('Your stomach does not have room to fit ' + toEat.toLowerCase());
       } else if  (stomach.search(toEat) === -1) {
         output(toEat + ' has now been eaten.');
         stomach = newStomach;
