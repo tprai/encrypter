@@ -104,11 +104,13 @@ function output(output) {
   texted.scrollTop = texted.scrollHeight;
 }
 
-var stomach = '|';
+var stomach = '';
 function run(inputRaw) {
 input = inputRaw.trim().toLowerCase();
 if (input.slice(0,8) === 'run void') {
   var texted = document.getElementById('terminal');
+  stomach = '';
+  dir = '<span class="green">-> </span>';
   texted.innerHTML = '';
   output('Cleared');
 } else if (dir === '<span class="green">-> </span>') {    
@@ -127,9 +129,11 @@ if (input.slice(0,8) === 'run void') {
     } else if (input.indexOf("eat ") === 0) {
       input = input.slice(4).trim();
       var toEat = input.slice(0,1).toUpperCase() + input.slice(1)
-      var newStomach = stomach + toEat + '|';
+      var newStomach = stomach + toEat;
       if (newStomach.length > 20) {
         output('Your stomach does not have room to fit ' + toEat.toLowerCase());
+      } else if (toEat === 'Secret') {
+      	output('Secret has now bean eaten');
       } else if  (stomach.search(toEat) === -1) {
         output(toEat + ' has now been eaten.');
         stomach = newStomach;
@@ -150,7 +154,14 @@ if (input.slice(0,8) === 'run void') {
     }
   } else if (input !== '' && input !== 'void') {
     output('Error');
-    dir = '<span class="green">-> </span>';
+  }
+} else if (dir === '<span class="green">secret-> </span>') {
+  if (input === 'bean') {
+    output('hehehe you found me hehehe');
+  	dir = '<span class="green">-> </span>';
+    
+  } else {
+    output('Error: incorrect passkey');
   }
 }
 } /*0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
