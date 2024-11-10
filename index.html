@@ -124,6 +124,8 @@ if (input.slice(0,8) === 'run void') {
       dir = '<span class="green">secret-> </span>';
     } else if (input.indexOf("secret") === 0) {
       output('There is no secret.');
+    } else if (input.indexOf("load") === 0) {
+      loadingBar('Loading',Number(input.slice(5)));
     } else if (input.indexOf("goto") === 0) {
       output('Input URL:');
     } else if (input.indexOf("eat ") === 0) {
@@ -161,9 +163,12 @@ if (input.slice(0,8) === 'run void') {
   	dir = '<span class="green">-> </span>';
   } else if (input === 'hehehe') {
   	output('<br><span style="line-height: 10px;" class="yellow">## ##&nbsp;&nbsp;###&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;# # #&nbsp;&nbsp;###&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;|<br>## ## #&nbsp;&nbsp;&nbsp;# #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;# # #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;##&nbsp;&nbsp;#&nbsp;&nbsp;|<br>&nbsp;###&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;# #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;# # #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;# # #&nbsp;&nbsp;|<br>&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;# #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;# # #&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;##&nbsp;&nbsp;|<br>&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# #&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;#&nbsp;&nbsp;&nbsp;#&nbsp;&nbsp;0</span>');
+  	dir = '<span class="green">-> </span>';
   } else {
     output('Error: incorrect passkey');
   }
+} else if (dir === '<span class="green">Loading-> </span>') {
+  dir = dir;
 }
 } /*0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
   /*0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
@@ -233,6 +238,33 @@ document.addEventListener('keydown', function(event) {
     updateText();
   }
 });
+function loadingBar(message, maxTime) {
+  dir = '<span class="green">Loading-> </span>';
+  load = 0;
+  output(message + '<div id="bar" style="width: 100%; height: 20px; border: 3px solid black; background: linear-gradient(to right, #00FF00 0%, transparent 0%);"></div>');
+  bar = document.getElementById('bar');
+  setTimeout(function() {
+    clearInterval(loadingInterval);
+    currentLoad = load;
+    loadingIntervalFinish = setInterval(loadingBarFinish, 10, maxTime);
+  }, maxTime);
+  loadingInterval = setInterval(loadingBarUpdate, maxTime/500, maxTime);
+}
+function loadingBarUpdate(maxTime) {
+  bar.style.backgroundImage = 'linear-gradient(to right, #00FF00 ' + 100*load/maxTime + '%, transparent ' + 100*load/maxTime + '%)';
+  load += maxTime/500;
+} 
+function loadingBarFinish(maxTime) {
+  bar.style.backgroundImage = 'linear-gradient(to right, #00FF00 ' + 100*load/maxTime + '%, transparent ' + 100*load/maxTime + '%)';
+  load += (maxTime-currentLoad)/20;
+  if (load >= maxTime) {
+  	clearInterval(loadingIntervalFinish);
+    bar.style.backgroundImage = 'linear-gradient(to right, #00FF00 100%, transparent 100%)';
+    bar.id = 'barLoaded';
+    output('');
+    output('Loading Finished');
+  }
+}
 </script>
 </head><body>
 <img src="background.png" style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
