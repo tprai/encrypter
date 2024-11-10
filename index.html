@@ -238,7 +238,7 @@ document.addEventListener('keydown', function(event) {
     updateText();
   }
 });
-function loadingBar(message, maxTime) {
+function loadingBar(message, maxTime, finishFunction = 'void') {
   dir = '<span class="green">Loading-> </span>';
   load = 0;
   output(message + '<div id="bar" style="width: 100%; height: 20px; border: 3px solid black; background: linear-gradient(to right, #00FF00 0%, transparent 0%);"></div>');
@@ -246,7 +246,7 @@ function loadingBar(message, maxTime) {
   setTimeout(function() {
     clearInterval(loadingInterval);
     currentLoad = load;
-    loadingIntervalFinish = setInterval(loadingBarFinish, 10, maxTime);
+    loadingIntervalFinish = setInterval(loadingBarFinish, 10, maxTime, finishFunction);
   }, maxTime);
   loadingInterval = setInterval(loadingBarUpdate, maxTime/500, maxTime);
 }
@@ -254,16 +254,17 @@ function loadingBarUpdate(maxTime) {
   bar.style.backgroundImage = 'linear-gradient(to right, #00FF00 ' + 100*load/maxTime + '%, transparent ' + 100*load/maxTime + '%)';
   load += maxTime/500;
 } 
-function loadingBarFinish(maxTime) {
+function loadingBarFinish(maxTime, finishFunction) {
   bar.style.backgroundImage = 'linear-gradient(to right, #00FF00 ' + 100*load/maxTime + '%, transparent ' + 100*load/maxTime + '%)';
   load += (maxTime-currentLoad)/20;
   if (load >= maxTime) {
   	clearInterval(loadingIntervalFinish);
     bar.style.backgroundImage = 'linear-gradient(to right, #00FF00 100%, transparent 100%)';
     bar.id = 'barLoaded';
-    output('');
     output('Loading Finished');
     dir = '<span class="green">-> </span>';
+    raw = finishFunction;
+    keyEnter();
   }
 }
 </script>
