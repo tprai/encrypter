@@ -124,8 +124,22 @@ if (input.slice(0,8) === 'run void') {
       dir = '<span class="green">secret-> </span>';
     } else if (input.indexOf("secret") === 0) {
       output('There is no secret.');
-    } else if (input.indexOf("load") === 0) {
-      loadingBar('Loading',Number(input.slice(5)));
+    } else if (input.indexOf("load ") === 0) {
+      input = input.slice(5).trim();
+      if (Number(input) !== Number(input)) { //run function or error:
+      	if (input.search(' ') !== -1) {
+          var loadNumber = Number(input.slice(0,input.search(' ')));
+          if (loadNumber !== loadNumber) {
+            output('Error');
+          } else {
+            loadingBar('Loading',loadNumber,input.slice(input.search(' ') + 1));
+          }
+        } else {
+          output('Error');
+        }
+      } else { //just load animation:
+      	loadingBar('Loading',Number(input));
+      }
     } else if (input.indexOf("goto") === 0) {
       output('Input URL:');
     } else if (input.indexOf("eat ") === 0) {
@@ -168,10 +182,10 @@ if (input.slice(0,8) === 'run void') {
     output('Error: incorrect passkey');
   }
 } else if (dir === '<span class="green">Loading-> </span>') {
-  dir = dir;
+  output('');
 }
-} /*0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
-  /*0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000*/
+} //0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  //0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 function setTextColor(fullText, text, color) {
   return fullText.replace(RegExp(text,'gi'), '<span class="' + color + '">' + text + '</span>');
 }
@@ -196,11 +210,13 @@ function applyColor(colored) {
   /*try {colored = setTextColor(colored, colored.match(/\(([^)]+)\)/)[1], 'blue');} catch {colored = colored;}*/
   return colored;
 }
-function keyEnter() {
+function keyEnter(show = true) {
   var texted = document.getElementById('terminal');
   var text = document.getElementById('text');
-  var colored = applyColor(raw);
-  texted.innerHTML += '<br>' + dir + colored;
+  if (show) {
+    var colored = applyColor(raw);
+    texted.innerHTML += '<br>' + dir + colored;
+  }
   run(raw);
   text.innerHTML = dir + '<span class="b">_</span>';
   raw = '';
@@ -236,7 +252,7 @@ document.addEventListener('keydown', function(event) {
   } else if (event.key.length == 1 && !(event.ctrlKey)) {
   	raw = raw + event.key;
     updateText();
-  }
+  } 
 });
 function loadingBar(message, maxTime, finishFunction = 'void') {
   dir = '<span class="green">Loading-> </span>';
@@ -261,10 +277,12 @@ function loadingBarFinish(maxTime, finishFunction) {
   	clearInterval(loadingIntervalFinish);
     bar.style.backgroundImage = 'linear-gradient(to right, #00FF00 100%, transparent 100%)';
     bar.id = 'barLoaded';
-    output('Loading Finished');
     dir = '<span class="green">-> </span>';
+    var beforeEnterKeyRaw = raw
     raw = finishFunction;
-    keyEnter();
+    keyEnter(false);
+    raw = beforeEnterKeyRaw;
+    updateText();
   }
 }
 </script>
